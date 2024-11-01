@@ -7,6 +7,7 @@ import AllExpenses from './screens/AllExpenses';
 import RecentExpenses from './screens/RecentExpenses';
 import { GlobalStyles } from './constants/styles';
 import {Ionicons} from '@expo/vector-icons';
+import IconButton from './components/UI/IconButton';
 
 // stack and bottom tabs
 const Stack = createNativeStackNavigator();
@@ -17,7 +18,8 @@ function ExpensesOverView() {
     headerStyle: { backgroundColor: GlobalStyles.colors.primary500 },
     headerTintColor: 'white',
     tabBarStyle: { backgroundColor: GlobalStyles.colors.primary500 },
-    tabBarActiveTintColor: GlobalStyles.colors.accent500
+    tabBarActiveTintColor: GlobalStyles.colors.accent500,
+    headerRight: ({ tintColor }) => <IconButton icon={'add'} size={24} color={tintColor} onPress={() => {}} />
   }}>
     <BottomTabs.Screen name="RecentExpenses" component={RecentExpenses} options={{
       title: 'Recent Expenses', 
