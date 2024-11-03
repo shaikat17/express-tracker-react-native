@@ -86,7 +86,8 @@ function expensesReducer(state, action) {
 
       return updatedExpenses;
     case "DELETE":
-      return state.filter((expense) => expense.id !== action.payload.id);
+      // console.log(action.payload);
+      return state.filter((expense) => expense.id !== action.payload);
     default:
       return state;
   }
@@ -103,6 +104,7 @@ function ExpensesContextProvider({ children }) {
   }
 
   function deleteExpense(id) {
+    // console.log(id);
     dispatch({
       type: "DELETE",
       payload: id,

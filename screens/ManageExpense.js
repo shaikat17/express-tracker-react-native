@@ -4,11 +4,13 @@ import { GlobalStyles } from "../constants/styles";
 
 import { Ionicons } from '@expo/vector-icons';
 import Button from "../components/UI/Button";
+import { useExpensesContext } from "../store/expenses-context";
 
 const ManageExpense = ({ route, navigation }) => {
     const id = route.params?.expenseId;
     const isEditing = !!id;
 
+  const { deleteExpense, updateExpense, addExpense } = useExpensesContext();
     useLayoutEffect(() => {
         navigation.setOptions({
             title: isEditing ? 'Edit Expense' : 'Add Expense'
@@ -16,6 +18,8 @@ const ManageExpense = ({ route, navigation }) => {
     }, [navigation, isEditing])
 
   function deleteExpenseHandler() { 
+    // console.log(id);
+    deleteExpense(id);
     navigation.goBack();
   }
 
@@ -24,6 +28,20 @@ const ManageExpense = ({ route, navigation }) => {
    }
 
   function confirmHandler() {
+    if (isEditing) {
+      updateExpense(id, {
+        description: 'Test Updated description',
+        amount: 123,
+        date: new Date(),
+      });
+    } else {
+      const expenseData = {
+        description: 'Test description',
+        amount: 123,
+        date: new Date(),
+      };
+      addExpense(expenseData);
+    }
     navigation.goBack();
    }
   

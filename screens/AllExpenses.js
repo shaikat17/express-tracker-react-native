@@ -5,7 +5,7 @@ const AllExpenses = () => {
   const { expenses } = useExpensesContext()
   return (
       <>
-          <ExpensesOutput expenses={expenses} expensesPeriod={'Total'} />
+          <ExpensesOutput expenses={expenses} expensesPeriod={'Total'} fallbackText={'No registered expenses'} />
       </>
   )
 }
