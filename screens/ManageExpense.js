@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Button from "../components/UI/Button";
 import { useExpensesContext } from "../store/expenses-context";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
+import { storeExpense } from "../util/http";
 
 const ManageExpense = ({ route, navigation }) => {
 
@@ -37,6 +38,7 @@ const ManageExpense = ({ route, navigation }) => {
     if (isEditing) {
       updateExpense(id, expenseData);
     } else {
+      storeExpense(expenseData);
       addExpense(expenseData);
     }
     navigation.goBack();

@@ -1,16 +1,27 @@
 import { View, Text } from 'react-native'
 import ExpensesOutput from '../components/ExpensesOutput/ExpensesOutput'
 import { useExpensesContext } from '../store/expenses-context'
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry'
 import { getMinustedDate } from '../util/date'
+import { useEffect, useState } from 'react'
+import { fetchExpenses } from '../util/http'
 const RecentExpenses = () => {
-  const { expenses } = useExpensesContext()
+  // const { expenses } = useExpensesContext()
+  const [expenses, setExpenses] = useState([])
+
+  useEffect(() => {
+    async function getExpenses() {
+      const expenses = await fetchExpenses()
+      setExpenses(expenses)
+    }
+
+    getExpenses()
+  }, [expenses])
 
   const lastSevenDays = expenses.filter((expense) => {
     const today = new Date()
     const date7DaysAgo = getMinustedDate(today, 7)
 
-    return expense.date > date7DaysAgo
+    return new Date(expense.date) > date7DaysAgo
   })
 
 
