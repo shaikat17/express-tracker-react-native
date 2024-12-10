@@ -5,11 +5,14 @@ import { getMinustedDate } from '../util/date'
 import { useEffect, useState } from 'react'
 import { fetchExpenses } from '../util/http'
 const RecentExpenses = () => {
+  const [isLoading, setIsLoading] = useState(true)
   const {expenses, setExpenses } = useExpensesContext()
 
   useEffect(() => {
     async function getExpenses() {
+      setIsLoading(true)
       const expenses = await fetchExpenses()
+      setIsLoading(false)
       setExpenses(expenses)
     }
 
