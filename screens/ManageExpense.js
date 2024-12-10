@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Button from "../components/UI/Button";
 import { useExpensesContext } from "../store/expenses-context";
 import ExpenseForm from "../components/ManageExpense/ExpenseForm";
-import { storeExpense } from "../util/http";
+import { storeExpense, updateExpenseD, deleteExpenseD } from "../util/http";
 
 const ManageExpense = ({ route, navigation }) => {
 
@@ -27,6 +27,7 @@ const ManageExpense = ({ route, navigation }) => {
   function deleteExpenseHandler() { 
     // console.log(id);
     deleteExpense(id);
+    deleteExpenseD(id);
     navigation.goBack();
   }
 
@@ -34,12 +35,13 @@ const ManageExpense = ({ route, navigation }) => {
     navigation.goBack();
    }
 
-  function confirmHandler(expenseData) {
+  async function confirmHandler(expenseData) {
     if (isEditing) {
       updateExpense(id, expenseData);
+      updateExpenseD(id, expenseData);
     } else {
-      storeExpense(expenseData);
-      addExpense(expenseData);
+      const id = await storeExpense(expenseData);
+      addExpense(...expenseData, id);
     }
     navigation.goBack();
    }

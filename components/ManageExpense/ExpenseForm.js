@@ -12,7 +12,7 @@ const ExpenseForm = ({ onCancel, onSubmit, isEditing, defaultValues }) => {
       isValid: true,
     },
     date: {
-      value: defaultValues ? defaultValues.date.toISOString().slice(0, 10) : "",
+      value: defaultValues ? new Date(defaultValues.date).toISOString().slice(0, 10) : "",
       isValid: true,
     },
     description: {
